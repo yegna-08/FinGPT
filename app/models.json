@@ -1,0 +1,65 @@
+[
+    {
+        "id": "1",
+        "name": "FinMA (PIXIU)",
+        "description": "PIXIU, a comprehensive framework including the first financial LLM based on fine-tuning LLaMA.",
+        "author": "Qianqian Xie",
+        "publicationDate": "2023-06-08",
+        "links": {
+        "paper": "https://arxiv.org/abs/2306.05443",
+        "code": "https://github.com/chancefocus/PIXIU?tab=readme-ov-file",
+        "leaderboard": "https://huggingface.co/spaces/ChanceFocus/FLARE"
+      }
+    },
+    
+    {
+        "id": "2",
+      "name": "FinGPT",
+      "description": "FinGPT is an economical and efficient alternative to traditional large language models (LLMs) like BloombergGPT. This model democratizes access to sophisticated financial analytics, enabling timely updates through an automated data curation pipeline. Furthermore, FinGPT incorporates Reinforcement Learning from Human Feedback (RLHF), a technology that tailors its output to individual user preferences, such as risk tolerance and investment strategies, making it a highly adaptable and user-centric tool for personalized financial insights.",
+      "author": "Hongyang Yang",
+      "publicationDate": "2023-06-09",
+      "links": {
+        "paper": "https://arxiv.org/abs/2306.06031",
+        "code": "https://github.com/AI4Finance-Foundation/FinGPT",
+        "data": "https://huggingface.co/FinGPT"
+      }
+    },
+
+    {
+        "id": "3",
+      "name": "Fin-LLaMA (code only)",
+      "description": "Efficient Finetuning of Quantized LLMs for Finance",
+      "author": "",
+      "publicationDate": "",
+      "links": {
+        "code": "https://huggingface.co/bavest/fin-llama-33b-merged",
+        "data": "https://huggingface.co/datasets/bavest/fin-llama-dataset"
+      }
+    },
+    {
+        "id": "4",
+      "name": "Cornucopia (code only / Chinese)",
+      "description": "Cornucopia-LLaMA-Fin-Chinese is a cutting-edge language model tailored specifically for financial applications within the Chinese market. Built on the robust LLaMA architecture, it is designed to deliver highly accurate, industry-specific insights and analyses, making it a vital tool for professionals seeking nuanced understanding and predictions in Chinese financial contexts.",
+      "author": "",
+      "publicationDate": "",
+      "links": {
+        "paper": "https://zhuanlan.zhihu.com/p/633736418",
+        "code": "https://github.com/jerry1993-tech/Cornucopia-LLaMA-Fin-Chinese.git"
+      }
+    },
+
+    {
+        "id": "5",
+      "name": "Xuanyuan2.0 (Chinese)",
+      "description": "XuanYuan 2.0, the most advanced Chinese chat model for finance, leverages the BLOOM-176B architecture and introduces hybrid-tuning to blend general and financial knowledge. This method ensures precise, context-aware responses in the Chinese financial sector, filling a critical gap in specialized AI language models.",
+      "author": "Xuanyu Zhang",
+      "publicationDate": "2023-05-19",
+      "links": {
+        "paper":"https://arxiv.org/abs/2305.12002",
+        "code": "https://github.com/Duxiaoman-DI/XuanYuan",
+        "data": "https://huggingface.co/datasets/Duxiaoman-DI/FinCorpus"
+
+      }
+    }
+  ]
+  
