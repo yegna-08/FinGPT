@@ -42,8 +42,6 @@ finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', dev
 # fingpt_model = fingpt_model.eval()
 
 
-app = FastAPI()
-
 async def generate_finma_response(text: str):
     inputs = finma_tokenizer(text, return_tensors="pt")
     output = await run_in_threadpool(lambda: finma_model.generate(**inputs))
