@@ -1,5 +1,5 @@
 import transformers
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 import torch
 from peft import PeftModel  # Assuming 'impot peft' was meant to be 'import peft'
 from datasets import load_dataset
@@ -53,10 +53,15 @@ async def generate_fingpt_response(text: str):
     return fingpt_tokenizer.decode(output[0], skip_special_tokens=True)
 
 @app.post("/finma")
-async def finma_endpoint(text: str):
+async def finma_endpoint(request: Request):
     try:
-        response = await generate_finma_response(text)
-        return {"response": response}
+        body = await request.json()
+        text = body.get("text", None)
+        if text:
+            response = await generate_finma_response(text)
+            return {"response": response}
+        else:
+            raise HTTPException(status_code=422, detail="Missing required fields")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
