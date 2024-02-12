@@ -30,19 +30,16 @@ finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
 finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
 
 # FinGPT model setup
+
+# base_model = AutoModelForCausalLM.from_pretrained(
+#     'meta-llama/Llama-2-7b-chat-hf',
+#     trust_remote_code=True,
+#     device_map="auto",
+#     # torch_dtype=torch.float16,   # optional if you have enough VRAM
+# )
 # fingpt_tokenizer = AutoTokenizer.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
 # fingpt_model = PeftModel.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
 # fingpt_model = fingpt_model.eval()
-
-base_model = AutoModelForCausalLM.from_pretrained(
-    'meta-llama/Llama-2-7b-chat-hf',
-    trust_remote_code=True,
-    device_map="auto",
-    # torch_dtype=torch.float16,   # optional if you have enough VRAM
-)
-fingpt_tokenizer = AutoTokenizer.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
-fingpt_model = PeftModel.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
-fingpt_model = fingpt_model.eval()
 
 
 app = FastAPI()
