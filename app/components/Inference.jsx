@@ -21,7 +21,7 @@ const InferenceComponent = () => {
         setResponse('');
     
         try {
-            const response = await fetch(`http://localhost:5000/${model}`, {
+            const response = await fetch(`http://192.168.10.131:5000/${model}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
