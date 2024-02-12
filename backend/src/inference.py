@@ -7,9 +7,9 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, LlamaTokenizer, Ll
 import uvicorn
 from fastapi.concurrency import run_in_threadpool
 
-# Finma model setup
-finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-nlp')
-finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-nlp', device_map='auto')
+# # Finma model setup
+# finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-nlp')
+# finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-nlp', device_map='auto')
 
 # FinGPT model setup
 fingpt_tokenizer = AutoTokenizer.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')

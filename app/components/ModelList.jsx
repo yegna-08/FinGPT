@@ -53,6 +53,9 @@ function ModelList() {
           <h3 className="font-bold text-lg">{selectedModel.name}</h3>
           <p className="py-4">{selectedModel.description}</p>
           <div className="modal-action">
+          {selectedModel.links.inference && (
+              <a href={selectedModel.links.inference} className="btn btn-accent" target="_blank" rel="noopener noreferrer">Inference</a>
+            )}
             {selectedModel.links.paper && (
               <a href={selectedModel.links.paper} className="btn btn-accent" target="_blank" rel="noopener noreferrer">Paper</a>
             )}

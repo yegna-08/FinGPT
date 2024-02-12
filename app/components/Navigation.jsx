@@ -11,6 +11,9 @@ export default function Navigation() {
           <Link href="/model-list" className="py-2 px-3 no-underline hover:underline">
             FinGPT Models
           </Link>
+          <Link href="/inference" className="py-2 px-3 no-underline hover:underline">
+            Inference
+          </Link>
           <Link href="/faq" className="py-2 px-3 no-underline hover:underline">
             FAQ
           </Link>

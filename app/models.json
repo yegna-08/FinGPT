@@ -8,7 +8,8 @@
         "links": {
         "paper": "https://arxiv.org/abs/2306.05443",
         "code": "https://github.com/chancefocus/PIXIU?tab=readme-ov-file",
-        "leaderboard": "https://huggingface.co/spaces/ChanceFocus/FLARE"
+        "leaderboard": "https://huggingface.co/spaces/ChanceFocus/FLARE",
+        "inference": "/inference"
       }
     },
     
@@ -21,7 +22,8 @@
       "links": {
         "paper": "https://arxiv.org/abs/2306.06031",
         "code": "https://github.com/AI4Finance-Foundation/FinGPT",
-        "data": "https://huggingface.co/FinGPT"
+        "data": "https://huggingface.co/FinGPT",
+        "inference": "/inference"
       }
     },
 

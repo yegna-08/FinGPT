@@ -14,13 +14,13 @@ export default function Index() {
             This website serves as a repository for Financial Generative Pre-trained Transformer models, 
             offering users a centralized platform to explore and access a variety of open-source models tailored for financial analysis and forecasting.
             </p>
-            <form
+            {/* <form
               action="https://github.com/AI4Finance-Foundation/FinGPT?tab=readme-ov-file"
               method="post"
               target="_blank"
             >
               <button className="btn hover:btn-neutral">Paper</button>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>
