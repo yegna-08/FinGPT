@@ -58,8 +58,8 @@ deepspeed_config = {
         }
     }
 }
-model = LlamaForCausalLM.from_pretrained(model_path, device_map='auto')
-engine = deepspeed.init_inference(model, config=deepspeed_config)
+# model = LlamaForCausalLM.from_pretrained(model_path, device_map='auto')
+engine = deepspeed.init_inference(finma_model, config=deepspeed_config)
 
 
 async def generate_finma_response(text: str):
