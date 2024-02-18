@@ -2,7 +2,7 @@
 import { useState } from 'react';
 
 const InferenceComponent = () => {
-    const [model, setModel] = useState('finma'); // default to finma
+    const [model, setModel] = useState('finma_deepspeed'); // default to finma
     const [inputText, setInputText] = useState('');
     const [response, setResponse] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +54,7 @@ const InferenceComponent = () => {
                     <select value={model} onChange={handleModelChange} className="select select-accent w-full max-w-xs text-black">
                         <option value="finma">Finma</option>
                         <option value="fingpt">FinGPT</option>
+                        <option value="finma_deepspeed">Finma(DeepSpeed)</option>
                     </select>
                 </label>
                 <br />
