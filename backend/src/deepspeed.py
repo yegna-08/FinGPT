@@ -5,7 +5,7 @@ from transformers import pipeline
 
 local_rank = int(os.getenv('LOCAL_RANK', '0'))
 world_size = int(os.getenv('WORLD_SIZE', '1'))
-generator = pipeline('finma', model='ChanceFocus/finma-7b-trade',
+generator = pipeline('text-generation', model='ChanceFocus/finma-7b-trade',
                      device=local_rank)
 
 
