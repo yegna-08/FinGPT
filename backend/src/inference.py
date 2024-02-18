@@ -42,8 +42,8 @@ finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', dev
 # fingpt_model = PeftModel.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
 # fingpt_model = fingpt_model.eval()
 
-# Initialize the tokenizer and DeepSpeed model for the FINMA model
-finma_tokenizer = AutoTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
+# # Initialize the tokenizer and DeepSpeed model for the FINMA model
+# finma_tokenizer = AutoTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
 # Assuming the model setup for DeepSpeed is similar to the example provided
 # Note: DeepSpeed's init_inference requires a model object and a configuration
 model_path = 'ChanceFocus/finma-7b-trade'  # Path to your model
