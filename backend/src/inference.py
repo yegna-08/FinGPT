@@ -88,14 +88,14 @@ async def fingpt_endpoint(request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/deepspeed")
-async def generate_text(prompt: str, max_new_tokens: int = 50, do_sample: bool = True):
+async def generate_text(prompt: str):
     # Clear any cached memory to avoid out-of-memory
     torch.cuda.empty_cache()
 
     # Generate text
     with torch.no_grad():  # Ensures no gradients are computed to save memory
         try:
-            generated_text = generator(prompt, do_sample=do_sample, max_new_tokens=max_new_tokens)
+            generated_text = generator(prompt, do_sample=True, max_new_tokens=50)
             return {"response": generated_text[0]['generated_text']}
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
