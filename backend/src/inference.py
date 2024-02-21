@@ -88,17 +88,23 @@ async def fingpt_endpoint(request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/deepspeed")
-async def generate_text(prompt: str):
-    # Clear any cached memory to avoid out-of-memory
-    torch.cuda.empty_cache()
+async def generate_text(request: Request):
+    try:
+        body = await request.json()
+        text = body.get("text", None)
+        if text:
+            # Clear any cached memory to avoid out-of-memory
+            torch.cuda.empty_cache()
+        else: 
+            raise HTTPException(status_code=422, detail="Missing required fields")
 
-    # Generate text
-    with torch.no_grad():  # Ensures no gradients are computed to save memory
-        try:
-            generated_text = generator(prompt, do_sample=True, max_new_tokens=50)
-            return {"response": generated_text[0]['generated_text']}
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=str(e))
+            # Generate text
+            with torch.no_grad():  # Ensures no gradients are computed to save memory
+                generated_text = generator(text, do_sample=True, max_new_tokens=50)
+                return {"response": generated_text[0]['generated_text']}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+        
 
 if __name__ == "__main__":
     # Start Uvicorn server
