@@ -32,9 +32,9 @@ world_size = int(os.getenv('WORLD_SIZE', '1'))
 if torch.cuda.is_available():
     torch.cuda.set_device(local_rank)
 
-# Finma model setup
-finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
-finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
+# # Finma model setup
+# finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
+# finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
 
 generator = pipeline('text-generation', model='bigscience/bloom-1b1', device=local_rank)
 generator.model = deepspeed.init_inference(generator.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
