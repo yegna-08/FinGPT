@@ -92,16 +92,17 @@ async def generate_text(request: Request):
     try:
         body = await request.json()
         text = body.get("text", None)
+        print(text)
         if text:
             # Clear any cached memory to avoid out-of-memory
             torch.cuda.empty_cache()
-        else: 
-            raise HTTPException(status_code=422, detail="Missing required fields")
-
             # Generate text
             with torch.no_grad():  # Ensures no gradients are computed to save memory
                 generated_text = generator(text, do_sample=True, max_new_tokens=50)
                 return {"response": generated_text[0]['generated_text']}
+        else: 
+            raise HTTPException(status_code=422, detail="Missing required fields")
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
         
