@@ -8,9 +8,9 @@ def main():
     local_rank = int(os.getenv('LOCAL_RANK', '0'))
     world_size = int(os.getenv('WORLD_SIZE', '1'))
 
-    # Setup for potential distributed environment improvements
-    if torch.cuda.is_available():
-        torch.cuda.set_device(local_rank)
+    # # Setup for potential distributed environment improvements
+    # if torch.cuda.is_available():
+    #     torch.cuda.set_device(local_rank)
 
     # # Finma model setup
     # finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
@@ -26,15 +26,15 @@ def main():
                                                dtype=torch.half,
                                                replace_with_kernel_inject=True)
 
-    # Efficient CUDA memory handling
-    torch.cuda.empty_cache()  # Clear any cached memory to avoid out-of-memory
+    # # Efficient CUDA memory handling
+    # torch.cuda.empty_cache()  # Clear any cached memory to avoid out-of-memory
 
-    with torch.no_grad():  # Ensures no gradients are computed to save memory
-        string = generator("DeepSpeed is", do_sample=True, min_length=50)
+    # with torch.no_grad():  # Ensures no gradients are computed to save memory
+    string = generator("DeepSpeed is", do_sample=True, min_length=50)
 
-    # Ensure printing only occurs in the main process in a distributed setting
-    if not torch.distributed.is_initialized() or torch.distributed.get_rank() == 0:
-        print(string)
+    # # Ensure printing only occurs in the main process in a distributed setting
+    # if not torch.distributed.is_initialized() or torch.distributed.get_rank() == 0:
+    print(string)
 
 if __name__ == "__main__":
     main()
