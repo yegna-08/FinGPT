@@ -28,7 +28,7 @@ app.add_middleware(
 
 # Finma model setup
 finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
-# finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
+finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
 
 # FinGPT model setup
 
@@ -38,9 +38,9 @@ finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
 #     device_map="auto",
 #     # torch_dtype=torch.float16,   # optional if you have enough VRAM
 # )
-# fingpt_tokenizer = AutoTokenizer.from_pretrained('meta-llama/Llama-2-7b-chat-hf')
-fingpt_model = PeftModel.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
-fingpt_model = fingpt_model.eval()
+# # fingpt_tokenizer = AutoTokenizer.from_pretrained('meta-llama/Llama-2-7b-chat-hf')
+# fingpt_model = PeftModel.from_pretrained('FinGPT/fingpt-forecaster_dow30_llama2-7b_lora')
+# fingpt_model = fingpt_model.eval()
 
 async def generate_finma_response(text: str):
     inputs = finma_tokenizer(text, return_tensors="pt")
