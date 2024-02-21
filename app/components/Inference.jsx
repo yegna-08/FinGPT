@@ -54,7 +54,7 @@ const InferenceComponent = () => {
                     <select value={model} onChange={handleModelChange} className="select select-accent w-full max-w-xs text-black">
                         <option value="finma">Finma</option>
                         <option value="fingpt">FinGPT</option>
-                        <option value="finma_deepspeed">Finma(DeepSpeed)</option>
+                        <option value="deepspeed">DeepSpeed</option>
                     </select>
                 </label>
                 <br />

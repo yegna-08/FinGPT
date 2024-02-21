@@ -25,10 +25,18 @@ app.add_middleware(
     allow_headers=ALLOWED_HEADERS,
 )
 
+# Initialize the model once when the app starts
+local_rank = int(os.getenv('LOCAL_RANK', '0'))
+world_size = int(os.getenv('WORLD_SIZE', '1'))
+if torch.cuda.is_available():
+    torch.cuda.set_device(local_rank)
 
 # Finma model setup
 finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
 finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
+
+generator = pipeline('text-generation', model='bigscience/bloom-1b1', device=local_rank)
+generator.model = deepspeed.init_inference(generator.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
 
 # FinGPT model setup
 
@@ -77,6 +85,19 @@ async def fingpt_endpoint(request: Request):
             raise HTTPException(status_code=422, detail="Missing required fields")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/deepspeed")
+async def generate_text(prompt: str, max_new_tokens: int = 50, do_sample: bool = True):
+    # Clear any cached memory to avoid out-of-memory
+    torch.cuda.empty_cache()
+
+    # Generate text
+    with torch.no_grad():  # Ensures no gradients are computed to save memory
+        try:
+            generated_text = generator(prompt, do_sample=do_sample, max_new_tokens=max_new_tokens)
+            return {"response": generated_text[0]['generated_text']}
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     # Start Uvicorn server
