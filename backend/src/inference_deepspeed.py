@@ -23,8 +23,8 @@ def main():
     # Initialize DeepSpeed Inference
     generator.model = deepspeed.init_inference(generator.model,
                                                tensor_parallel={"tp_size": world_size},
-                                               dtype=torch.float)
-                                            #    replace_with_kernel_inject=True
+                                               dtype=torch.half,
+                                               replace_with_kernel_inject=True)
 
     # Efficient CUDA memory handling
     torch.cuda.empty_cache()  # Clear any cached memory to avoid out-of-memory
