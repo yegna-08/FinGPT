@@ -33,7 +33,7 @@ if torch.cuda.is_available():
     torch.cuda.set_device(local_rank)
 
 
-hf_api_token = "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"
+hf_api_token = "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"
 
 # # Finma model setup
 # finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
