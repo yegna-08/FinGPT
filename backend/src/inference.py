@@ -36,8 +36,11 @@ if torch.cuda.is_available():
 # finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
 # finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
 
-generator = pipeline('text-generation', model='bigscience/bloom-1b1', device=local_rank)
-generator.model = deepspeed.init_inference(generator.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
+generator_bloom = pipeline('text-generation', model='bigscience/bloom-1b1', device=local_rank)
+generator_bloom.model = deepspeed.init_inference(generator_bloom.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
+
+generator_gemma = pipeline('text-generation', model='google/gemma-2b', device=local_rank)
+generator_gemma.model = deepspeed.init_inference(generator_gemma.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
 
 # FinGPT model setup
 
@@ -87,7 +90,7 @@ async def fingpt_endpoint(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/deepspeed")
+@app.post("/bloom_deepspeed")
 async def generate_text(request: Request):
     try:
         body = await request.json()
@@ -98,7 +101,26 @@ async def generate_text(request: Request):
             torch.cuda.empty_cache()
             # Generate text
             with torch.no_grad():  # Ensures no gradients are computed to save memory
-                generated_text = generator(text, do_sample=True, max_new_tokens=50)
+                generated_text = generator_bloom(text, do_sample=True, max_new_tokens=50)
+                return {"response": generated_text[0]['generated_text']}
+        else: 
+            raise HTTPException(status_code=422, detail="Missing required fields")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+    
+@app.post("/gemma_deepspeed")
+async def generate_text(request: Request):
+    try:
+        body = await request.json()
+        text = body.get("text", None)
+        print(text)
+        if text:
+            # Clear any cached memory to avoid out-of-memory
+            torch.cuda.empty_cache()
+            # Generate text
+            with torch.no_grad():  # Ensures no gradients are computed to save memory
+                generated_text = generator_gemma(text, do_sample=True, max_new_tokens=50)
                 return {"response": generated_text[0]['generated_text']}
         else: 
             raise HTTPException(status_code=422, detail="Missing required fields")
