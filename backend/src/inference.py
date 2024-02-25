@@ -32,6 +32,9 @@ world_size = int(os.getenv('WORLD_SIZE', '1'))
 if torch.cuda.is_available():
     torch.cuda.set_device(local_rank)
 
+
+hf_api_token = "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"
+
 # # Finma model setup
 # finma_tokenizer = LlamaTokenizer.from_pretrained('ChanceFocus/finma-7b-trade')
 # finma_model = LlamaForCausalLM.from_pretrained('ChanceFocus/finma-7b-trade', device_map='auto')
@@ -39,7 +42,7 @@ if torch.cuda.is_available():
 generator_bloom = pipeline('text-generation', model='bigscience/bloom-1b1', device=local_rank)
 generator_bloom.model = deepspeed.init_inference(generator_bloom.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
 
-generator_gemma = pipeline('text-generation', model='google/gemma-2b', device=local_rank)
+generator_gemma = pipeline('text-generation', model='google/gemma-2b', device=local_rank, use_auth_token=hf_api_token)
 generator_gemma.model = deepspeed.init_inference(generator_gemma.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
 
 # FinGPT model setup
