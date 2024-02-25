@@ -42,8 +42,8 @@ hf_api_token = "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"
 generator_bloom = pipeline('text-generation', model='bigscience/bloom-1b1', device=local_rank)
 generator_bloom.model = deepspeed.init_inference(generator_bloom.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
 
-generator_gemma = pipeline('text-generation', model='google/gemma-2b', device=local_rank, use_auth_token=hf_api_token)
-generator_gemma.model = deepspeed.init_inference(generator_gemma.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
+# generator_gemma = pipeline('text-generation', model='google/gemma-2b', device=local_rank, use_auth_token=hf_api_token)
+# generator_gemma.model = deepspeed.init_inference(generator_gemma.model, tensor_parallel={"tp_size": world_size}, dtype=torch.float, replace_with_kernel_inject=False)
 
 # FinGPT model setup
 
